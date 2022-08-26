@@ -1,0 +1,88 @@
+<div id="app">
+    <div class="main-icons">
+        <div class="main-icon-list">
+            <div class="main-icon-tabs s-flex">
+                <div class="tab-item" v-for="(item, index) in tabList" :key="index"
+                     :class="{ active: activeIndex == index }" @click="activeIndex = index">{{ item }}
+                </div>
+            </div>
+            <ul class="icon-list s-flex flex-wrap">
+                <li class="s-flex flex-dir ai-ct jc-ct" v-for="(item, index) in iconList" :key="index"
+                    :title="item.name">
+                    <em class="iconfont" v-html="item.unicode"></em>
+                    <p class="ellipsis-1" v-if="activeIndex == 0">{{ item.unicode }}</p>
+                    <p class="ellipsis-1" v-if="activeIndex == 1">{{ item.name }}</p>
+                    <p class="ellipsis-1" v-if="activeIndex == 2">icon-{{ item.name }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                tabList: ['Unicode', 'Font Class', 'Symbol'],
+                activeIndex: 0,
+                iconList: []
+            }
+        },
+        methods: {},
+        mounted() {
+            this.iconList = [{"lightbulb":"","name":"lightbulb","unicode":"&#59905;"}]
+            console.log(this.iconList)
+        }
+    })
+</script>
+
+<style scoped>
+    @font-face {
+        font-family: "iconfont";
+        src: url('./iconfont.ttf') format('truetype'),
+        url('./iconfont.woff') format('woff'),
+        url('./iconfont.woff2') format('woff2'),
+        url('./iconfont.svg#iconfont') format('svg');
+    }
+
+    .iconfont {
+        display: inline-block;
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    /*flex布局*/
+    .s-flex { display: -webkit-box; display: -moz-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; }
+    .flex-1 { -prefix-box-flex: 1; -webkit-box-flex: 1; -webkit-flex: 1; -moz-box-flex: 1; -ms-flex: 1; flex: 1; }
+    .flex-dir { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .jc-ct { justify-content: center; }
+    .ai-ct { align-items: center; }
+    .jc-bt { justify-content: space-between; }
+    .jc-ad { justify-content: space-around; }
+    .jc-fe { justify-content: flex-end; }
+    .ai-fe { align-items: flex-end; }
+    .ai-fs { align-items: flex-start; }
+
+    /*文字截断*/
+    .ellipsis-1 { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .ellipsis-2 { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; word-break: break-all; -webkit-box-orient: vertical; }
+
+
+    .main-icon-list {}
+    .main-icon-tabs { margin: 20px 0; }
+    .main-icon-tabs .tab-item { padding: 10px; margin: 0 10px; border-radius: 30px; background-color: #999999; font-size: 14px; color: #333333; cursor: pointer; }
+    .main-icon-tabs .tab-item:hover,
+    .main-icon-tabs .tab-item.active { background-color: #0b6666; color: #ffffff; }
+
+    .icon-list { max-height: calc(100vh - 200px); padding: 0; overflow-y: auto; }
+    .icon-list li { width: calc((100% / 6) - 20px); padding: 20px 10px 5px; margin: 10px; list-style: none; text-align: center; background-color: #e5e5e6; border-radius: 6px; cursor: pointer; box-sizing: border-box; }
+    .icon-list li em { font-size: 26px; }
+    .icon-list li p,
+    .icon-list li span { line-height: 1.2; width: 100%; text-align: center; margin: 5px 0; font-size: 14px; }
+    .icon-list li span { font-size: 12px; }
+</style>
